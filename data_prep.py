@@ -32,10 +32,23 @@ data['CRASH_WEEKDAY'] = data['CRASH_DATE'].dt.dayofweek
 data['CRASH_HOUR'] = data['CRASH_DATE'].dt.hour
 data['CRASH_Month'] = data['CRASH_DATE'].dt.month
 
-#assigning every sample an area in a grid overlay on chicago
-city_map = MapGrid(Config.city, Config.city_boundaries, 32, 32)
-#latitude -> the higher the more north, Longitude -> the higher the more east in grid, origin of gird = ll = (0,0)
-data["grid"] = data.apply(lambda x: city_map.get_grid(x['LONGITUDE'], x['LATITUDE']), axis=1)
+# #assigning every sample an area in a grid overlay on chicago
+# city_map = MapGrid(Config.city, Config.city_boundaries, 32, 32)
+# #latitude -> the higher the more north, Longitude -> the higher the more east in grid, origin of gird = ll = (0,0)
+# data["grid"] = data.apply(lambda x: city_map.get_grid(x['LONGITUDE'], x['LATITUDE']), axis=1)
+
+#=========temporary==========
+city_map = MapGrid(Config.city, Config.city_boundaries, 33, 33)
+data["grid_33"] = data.apply(lambda x: city_map.get_grid(x['LONGITUDE'], x['LATITUDE']), axis=1)
+
+city_map = MapGrid(Config.city, Config.city_boundaries, 48, 48)
+data["grid_48"] = data.apply(lambda x: city_map.get_grid(x['LONGITUDE'], x['LATITUDE']), axis=1)
+
+city_map = MapGrid(Config.city, Config.city_boundaries, 67, 67)
+data["grid_67"] = data.apply(lambda x: city_map.get_grid(x['LONGITUDE'], x['LATITUDE']), axis=1)
+
+city_map = MapGrid(Config.city, Config.city_boundaries, 96, 96)
+data["grid_96"] = data.apply(lambda x: city_map.get_grid(x['LONGITUDE'], x['LATITUDE']), axis=1)
 
 
 #saving cleaned data
