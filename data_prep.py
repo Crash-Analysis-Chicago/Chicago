@@ -25,8 +25,10 @@ data['LATITUDE'].replace('', np.nan, inplace=True)
 data.dropna(axis=0, subset=['LONGITUDE', 'LATITUDE'], inplace=True)
 
 #convert object to datetime format
-data['CRASH_DATE'] = pd.to_datetime(data['CRASH_DATE'], format='%m/%d/%Y %I:%M:%S %p')
-
+#try:
+data['CRASH_DATE'] = pd.to_datetime(data['CRASH_DATE']) #, format='%m/%d/%Y %I:%M:%S %p'
+#except:
+ #   data['CRASH_DATE'] = pd.to_datetime(data['CRASH_DATE'], format='%m/%d/%Y %I:%M')
 #Monday = 0, Sunday = 6
 data['CRASH_WEEKDAY'] = data['CRASH_DATE'].dt.dayofweek
 data['CRASH_HOUR'] = data['CRASH_DATE'].dt.hour
