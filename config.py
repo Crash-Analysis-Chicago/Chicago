@@ -2,7 +2,7 @@
 class Config:
 
     city = 'chicago'  # string, which city to analyse from bounding box object
-    mapsize = 32  # int, how many cells each axis of grid should have
+    mapsize = 'all_sizes'  # int, how many cells each axis of grid should have
 
     org_data = "Traffic_Crashes_-_Crashes Chicago.csv"
     clean_data = "chicago_crashes_cleaned_{}.csv".format(mapsize)

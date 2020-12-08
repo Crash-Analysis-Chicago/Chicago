@@ -39,6 +39,10 @@ data['CRASH_Month'] = data['CRASH_DATE'].dt.month
 # #latitude -> the higher the more north, Longitude -> the higher the more east in grid, origin of gird = ll = (0,0)
 # data["grid"] = data.apply(lambda x: city_map.get_grid(x['LONGITUDE'], x['LATITUDE']), axis=1)
 
+data = data.loc[data['WEATHER_CONDITION'].isin(['CLEAR', 'RAIN', 'CLOUDY/OVERCAST', 'SNOW'])]
+data = data.loc[~data['LIGHTING_CONDITION'].isin(['UNKNOWN'])]
+data = data.loc[data['ROADWAY_SURFACE_COND'].isin(['DRY', 'WET', 'SNOW OR SLUSH'])]
+
 #=========temporary==========
 city_map = MapGrid(Config.city, Config.city_boundaries, 33, 33)
 data["grid_33"] = data.apply(lambda x: city_map.get_grid(x['LONGITUDE'], x['LATITUDE']), axis=1)
@@ -56,7 +60,7 @@ data["grid_96"] = data.apply(lambda x: city_map.get_grid(x['LONGITUDE'], x['LATI
 #saving cleaned data
 save_path = os.path.join(curr_dir, Config.data_folder, Config.clean_data)
 print('saving cleaned data')
-data.to_csv(save_path)
+data.to_csv(save_path, index=False)
 
 
 
