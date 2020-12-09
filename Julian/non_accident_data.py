@@ -3,9 +3,7 @@ import pandas as pd
 from map_grid import MapGrid
 from config import Config
 from tqdm import tqdm
-
-with open('/Users/juliankopp1/Downloads/jobs_2151686_results_first_report.json') as f:
-    data = json.load(f)
+from os.path import join
 
 
 def get_midpoint(shape):
@@ -29,6 +27,9 @@ def get_midpoint(shape):
 
     return lat_mid, lon_mid
 
+#load .json from drive and put into data folder of your local github repository
+with open(join(Config.data_folder, 'jobs_2151686_results_first_report.json')) as f:
+    data = json.load(f)
 
 segment_results = data['network']['segmentResults']
 
@@ -59,8 +60,8 @@ print('4/4')
 city_map = MapGrid(Config.city, Config.city_boundaries, 96, 96)
 data["grid_96"] = data.apply(lambda x: city_map.get_grid(x['LONGITUDE'], x['LATITUDE']), axis=1)
 
+#===== change grid config here =====
 data_per_cell = data.groupby(['grid_67']).sum()
+data_per_cell.drop(['LATITUDE', 'LONGITUDE', 'steet_type'], inplace=True, axis=1)
 
-data_per_cell.to_csv('zone_capacity.csv', index=False)
-
-print(data)
+data_per_cell.to_csv('zone_capacity.csv')
